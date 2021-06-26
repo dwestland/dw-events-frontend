@@ -1,0 +1,10 @@
+
+GET http://localhost:3000/api/events
+
+###
+
+PUT http://localhost:3000/api/events
+
+###
+
+GET http://localhost:3000/api/events/throwback-thursdays-with-dj-manny-duke
