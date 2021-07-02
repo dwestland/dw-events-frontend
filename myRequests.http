@@ -3,8 +3,14 @@ GET http://localhost:3000/api/events
 
 ###
 
-PUT http://localhost:3000/api/events
+PUT http://localhost:3000/events
 
-###
 
-GET http://localhost:3000/api/events/throwback-thursdays-with-dj-manny-duke
+### Get single event:
+GET http://localhost:1337/events?slug=throwback-thursdays-with-dj-manny-duke
+
+
+
+### Search
+GET http://localhost:1337/events?name_contains=manny
+
