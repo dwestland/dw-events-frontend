@@ -1,8 +1,11 @@
+import Link from 'next/link'
 import Layout from '@/components/Layout'
 import EventItem from '@/components/EventItem'
 import { API_URL } from '@/config/index'
+const PER_PAGE = 2
 
-export default function EventsPage({events}) {
+export default function EventsPage({events, page, total}) {
+  const lastPage = Math.ceil(total / PER_PAGE)
 
   return (
     <Layout>
@@ -12,16 +15,35 @@ export default function EventsPage({events}) {
       {events.map((evt) => (
         <EventItem key={evt.id} evt={evt} />
       ))}
+
+      {page > 1 && (
+        <Link href={`/events?page-${page - 1}`}>
+          <a className='btn-secondary'>Prev</a>
+        </Link>
+
+)}
     </Layout>
   )
 }
 
-export async function getStaticProps() {
-  const res = await fetch(`${API_URL}/events?_sort=date:ASC`)
-  const events = await res.json()
+export async function getServerSideProps({ query: {page = 1 } }) {
+
+  console.log(page)
+
+  // Calculate start page
+  const start = +page === 1 ? 0 : (+page - 1) * PER_PAGE
+
+  // Fetch total/count
+  const totalRes = await fetch(`${API_URL}/events/count`)
+  const total = await totalRes.json()
+
+  // Fetch events
+  const eventsRes = await fetch(
+    `${API_URL}/events?_sort=date:ASC&_limit=${PER_PAGE}&_start=${start}`
+  )
+  const events = await eventsRes.json()
 
   return {
-    props: {events},
-    revalidate: 1
+    props: { events, page: +page, total },
   }
 }
