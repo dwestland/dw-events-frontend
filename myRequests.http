@@ -14,3 +14,33 @@ GET http://localhost:1337/events?slug=throwback-thursdays-with-dj-manny-duke
 ### Search
 GET http://localhost:1337/events?name_contains=manny
 
+
+
+### Auth - password
+POST http://localhost:1337/auth/local
+Content-Type: application/x-www-form-urlencoded
+
+&identifier=john@gmail.com
+&password=Password1
+
+
+# **Strapi User**
+# user: don
+# pw: Password1
+# email: don@westland.net
+
+# **Website User:**
+# user John Doe
+# Pw: Password1
+# email: john@gmail.com
+
+# user: sally
+# Pw: Password1
+# email: sally@gmail.com
+
+### Auth - JWT token
+GET http://localhost:1337/events
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI1NTgxNDA0LCJleHAiOjE2MjgxNzM0MDR9.LlMTyu0xgJDKrc17CkVaF7jKeOZkIV05NctKqqVcFU4
+
+
+

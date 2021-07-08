@@ -1,8 +1,14 @@
-import '@/styles/globals.css'
+import { AuthProvider } from '@/context/AuthContext'
+import '../styles/globals.css'
 
-// This will be added to every page
+// The contents _app will be added to every page:
+
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <AuthProvider>
+      <Component {...pageProps} />
+    </AuthProvider>
+  )
 }
 
 export default MyApp
