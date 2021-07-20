@@ -20,7 +20,7 @@ GET http://localhost:1337/events?name_contains=manny
 POST http://localhost:1337/auth/local
 Content-Type: application/x-www-form-urlencoded
 
-&identifier=john@gmail.com
+&identifier=sally@gmail.com
 &password=Password1
 
 
@@ -40,7 +40,18 @@ Content-Type: application/x-www-form-urlencoded
 
 ### Auth - JWT token
 GET http://localhost:1337/events
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI1NTgxNDA0LCJleHAiOjE2MjgxNzM0MDR9.LlMTyu0xgJDKrc17CkVaF7jKeOZkIV05NctKqqVcFU4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjI2MDYxNzA2LCJleHAiOjE2Mjg2NTM3MDZ9.BXtHRkEkGmNZuiobX57ilKKw87rxyUS1_GkMWkHjLXg
 
 
+### Login
+GET http://localhost:3000/api/login
 
+
+# using events/me path
+###
+GET http://localhost:1337/events/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjI2NzU2OTcxLCJleHAiOjE2MjkzNDg5NzF9.J7g_25UtztCKuY4s8xgXnXMKk8aHF8aDlxL_iUwG80Y
+###
+PUT http://localhost:1337/events/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI2NDA1NTgyLCJleHAiOjE2Mjg5OTc1ODJ9.iPMG0EUUxeZCZeVrrV_KLiKOoBkf6eAD5Z5-cWJ60Dc
+time: 12:00 AM
