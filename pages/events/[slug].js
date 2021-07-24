@@ -4,7 +4,7 @@ import { FaPencilAlt, FaTimes } from 'react-icons/fa'
 import Link from 'next/link'
 import Image from 'next/image'
 import Layout from '@/components/Layout'
-import { API_URL} from '@/config/index'
+import { API_URL } from '@/config/index'
 import styles from '@/styles/Event.module.css'
 import { useRouter } from 'next/router'
 
@@ -21,11 +21,15 @@ export default function EventPage({ evt }) {
         <ToastContainer />
         {evt.image && (
           <div className={styles.image}>
-            <Image src={evt.image.formats.medium.url} width={960} height={600} />
+            <Image
+              src={evt.image.formats.medium.url}
+              width={960}
+              height={600}
+            />
           </div>
         )}
 
-        <h3>Performers</h3>
+        <h3>Performers:</h3>
         <p>{evt.performers}</p>
         <h3>Description:</h3>
         <p>{evt.description}</p>
@@ -33,49 +37,47 @@ export default function EventPage({ evt }) {
         <p>{evt.address}</p>
 
         <Link href='/events'>
-          <a className={styles.back}>
-            {'<'} Go Back
-           </a>
+          <a className={styles.back}>{'<'} Go Back</a>
         </Link>
       </div>
     </Layout>
   )
 }
 
-export async function getStaticPaths() {
-  const res = await fetch(`${API_URL}/events`)
-  const events = await res.json()
+// export async function getStaticPaths() {
+//   const res = await fetch(`${API_URL}/events`)
+//   const events = await res.json()
 
-  const paths = events.map(evt => ({
-    params: {slug: evt.slug}
-  }))
+//   const paths = events.map((evt) => ({
+//     params: { slug: evt.slug },
+//   }))
 
-  return {
-    paths,
-    fallback: true // Looks for path
-  }
+//   return {
+//     paths,
+//     fallback: true,
+//   }
+// }
 
-}
+// export async function getStaticProps({ params: { slug } }) {
+//   const res = await fetch(`${API_URL}/events?slug=${slug}`)
+//   const events = await res.json()
 
-export async function getStaticProps({ params: { slug } }) {
+//   return {
+//     props: {
+//       evt: events[0],
+//     },
+//     revalidate: 1,
+//   }
+// }
+
+// Went with server side props because Heroku may not work with static props and static paths
+export async function getServerSideProps({ query: { slug } }) {
   const res = await fetch(`${API_URL}/events?slug=${slug}`)
   const events = await res.json()
 
   return {
     props: {
-      evt: events[0]
+      evt: events[0],
     },
-    revalidate: 1
   }
 }
-
-// export async function getServerSideProps({ query: { slug } }) {
-//   const res = await fetch(`${API_URL}/api/events/${slug}`)
-//   const events = await res.json()
-
-//   return {
-//     props: {
-//       evt: events[0]
-//     }
-//   }
-// }
